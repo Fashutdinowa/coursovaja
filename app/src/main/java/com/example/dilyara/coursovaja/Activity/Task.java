@@ -1,6 +1,9 @@
 package com.example.dilyara.coursovaja.Activity;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,23 +16,57 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dilyara.coursovaja.DataBase.GlobalData;
 import com.example.dilyara.coursovaja.R;
+import com.example.dilyara.coursovaja.entity.Way;
+
+import org.harrix.sqliteexample.DatabaseHelper;
 
 public class Task extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Intent intent;
+    private DatabaseHelper mDBHelper;
+    private SQLiteDatabase mDb;
+    long id_proj;
+    long t;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task);
+        TextView name = (TextView) findViewById(R.id.textView5);
+        TextView stat = (TextView) findViewById(R.id.textView8);
+        TextView date = (TextView) findViewById(R.id.textView13);
+        TextView project = (TextView) findViewById(R.id.textView15);
+        TextView deskript = (TextView) findViewById(R.id.textView16);
+        TextView otvewetst = (TextView) findViewById(R.id.textView19);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         intent = getIntent();
-        String t = intent.getStringExtra("tata");
-        Toast.makeText(this, t, Toast.LENGTH_SHORT).show();
-
+        t = intent.getLongExtra("tata", 0);
+        mDBHelper = new DatabaseHelper(this);
+        try {
+            mDb = mDBHelper.getWritableDatabase();
+        } catch (SQLException mSQLException) {
+            throw mSQLException;
+        }
+        Cursor cursor = mDb.rawQuery("SELECT * FROM Tasks WHERE _id = " + Long.toString(t), null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            name.setText(cursor.getString(1));
+            stat.setText(GlobalData.status.get(cursor.getInt(2)).Name);
+            date.setText(cursor.getString(3) + " - " + cursor.getString(4));
+            id_proj = cursor.getInt(5);
+            deskript.setText(cursor.getString(6));
+            otvewetst.setText(GlobalData.user.Name+" "+GlobalData.user.Surname);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        cursor = mDb.rawQuery("SELECT Name FROM Projects WHERE _id = " + id_proj, null);
+        cursor.moveToFirst();
+        project.setText(cursor.getString(0));
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -38,7 +75,7 @@ public class Task extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        cursor.close();
     }
 
     @Override
@@ -71,6 +108,15 @@ public class Task extends AppCompatActivity
             startActivity(intent);
             return true;
         }
+        if (id == R.id.action_settings1) {
+            mDBHelper = new DatabaseHelper(this);
+            try {
+                mDb = mDBHelper.getWritableDatabase();
+            } catch (SQLException mSQLException) {
+                throw mSQLException;
+            }
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -97,5 +143,13 @@ public class Task extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    public void onClickProject(View view) {
+        if (GlobalData.user.Role>1)
+        {
+            Intent intent = new Intent(this, Project.class);
+            intent.putExtra("tata", id_proj);
+            startActivity(intent);
+        }
     }
 }

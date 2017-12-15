@@ -76,15 +76,15 @@ public class Projects extends AppCompatActivity
         else
             header.setText("Проектов нет");
         cursor.close();
-
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View itemClicked, int position,
-//                                    long id) {
-//                Intent intent = new Intent(Projects.this, Project.class);
-//                startActivity(intent);
-//            }
-//        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View itemClicked, int position,
+                                    long id) {
+                Intent intent = new Intent(Projects.this, Project.class);
+                intent.putExtra("tata", id);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -100,6 +100,7 @@ public class Projects extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+        if(GlobalData.user.Role>1)
         getMenuInflater().inflate(R.menu.projects, menu);
         return true;
     }

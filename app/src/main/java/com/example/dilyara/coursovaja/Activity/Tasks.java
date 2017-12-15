@@ -34,6 +34,7 @@ import java.util.ArrayList;
 public class Tasks extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     TextView FIO;
+    long id_task;
     private DatabaseHelper mDBHelper;
     private SQLiteDatabase mDb;
 
@@ -75,6 +76,7 @@ public class Tasks extends AppCompatActivity
             public void onItemClick(AdapterView<?> parent, View itemClicked, int position,
                                     long id) {
                 Intent intent = new Intent(Tasks.this, Task.class);
+                id_task = id;
                 intent.putExtra("tata", id);
                 startActivity(intent);
             }
@@ -94,6 +96,7 @@ public class Tasks extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+        if (GlobalData.user.Role>1)
         getMenuInflater().inflate(R.menu.tasks, menu);
         return true;
     }
