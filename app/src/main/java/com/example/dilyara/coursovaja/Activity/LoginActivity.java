@@ -74,6 +74,19 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
         cursor.close();
+        cursor = mDb.rawQuery("SELECT * FROM Ways", null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            GlobalData.ways.add(new Way(cursor.getInt(0), cursor.getString(1)));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        cursor = mDb.rawQuery("SELECT * FROM Roles", null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            GlobalData.roles.add(new Role(cursor.getInt(0), cursor.getString(1)));
+            cursor.moveToNext();
+        }
         Intent intent = new Intent(LoginActivity.this, Tasks.class);
         startActivity(intent);
     }
