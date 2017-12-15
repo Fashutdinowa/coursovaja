@@ -87,6 +87,16 @@ public class LoginActivity extends AppCompatActivity {
             GlobalData.roles.add(new Role(cursor.getInt(0), cursor.getString(1)));
             cursor.moveToNext();
         }
+        cursor.close();
+        cursor = mDb.rawQuery("SELECT * FROM Status", null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            GlobalData.status.add(new Status(cursor.getInt(0), cursor.getString(1)));
+            cursor.moveToNext();
+        }
+        cursor.close();
+        mDb.close();
+        mDBHelper.close();
         Intent intent = new Intent(LoginActivity.this, Tasks.class);
         startActivity(intent);
     }

@@ -29,13 +29,13 @@ import com.example.dilyara.coursovaja.R;
 import org.harrix.sqliteexample.DatabaseHelper;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Tasks extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    //Переменная для работы с БД
+    TextView FIO;
     private DatabaseHelper mDBHelper;
     private SQLiteDatabase mDb;
-    TextView FIO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,47 +57,28 @@ public class Tasks extends AppCompatActivity
         TextView header = (TextView) findViewById(R.id.textView4);
         mDBHelper = new DatabaseHelper(this);
         try {
-            try {
-                mDBHelper.updateDataBase();
-            } catch (IOException mIOException) {
-                throw new Error("UnableToUpdateDatabase");
-            }
-
-            try {
-                mDb = mDBHelper.getWritableDatabase();
-            } catch (SQLException mSQLException) {
-                throw mSQLException;
-            }
-
-            String[] catNames = new String[]{"Name", "Status"};
-            Cursor cursor = mDb.rawQuery("SELECT * FROM Tasks WHERE Responsible = " + GlobalData.user.ID, null);
-
-            SimpleCursorAdapter userAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_2,
-                    cursor, catNames, new int[]{android.R.id.text1, android.R.id.text2}, 0);
-            listView.setAdapter(userAdapter);
-            if (cursor.getCount() > 0)
-                header.setText("Найдено элементов: " + String.valueOf(cursor.getCount()));
-            else
-                header.setText("Задач нет");
-            cursor.close();
-        } catch (Exception e) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-
+            mDb = mDBHelper.getWritableDatabase();
+        } catch (SQLException mSQLException) {
+            throw mSQLException;
         }
-//// используем адаптер данных
-//        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-//                android.R.layout.simple_list_item_1, catNames);
-//
-//        listView.setAdapter(adapter);
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View itemClicked, int position,
-//                                    long id) {
-//                Intent intent = new Intent(Tasks.this, Task.class);
-//                startActivity(intent);
-//            }
-//        });
-
+        Cursor cursor = mDb.rawQuery("SELECT * FROM Tasks WHERE Responsible = "+GlobalData.user.ID, null);
+        cursor.moveToFirst();
+        SimpleCursorAdapter userAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_2,
+                cursor, new String []{"Name", "Status"}, new int[]{android.R.id.text1, android.R.id.text2}, 0);
+        listView.setAdapter(userAdapter);
+        if (cursor.getCount() > 0)
+            header.setText("Найдено элементов: " + String.valueOf(cursor.getCount()));
+        else
+            header.setText("Задач нет");
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View itemClicked, int position,
+                                    long id) {
+                Intent intent = new Intent(Tasks.this, Task.class);
+                intent.putExtra("tata", id);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

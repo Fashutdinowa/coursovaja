@@ -26,7 +26,9 @@ public class Task extends AppCompatActivity
         setContentView(R.layout.activity_task);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        intent = getIntent();
+        String t = intent.getStringExtra("tata");
+        Toast.makeText(this, t, Toast.LENGTH_SHORT).show();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
