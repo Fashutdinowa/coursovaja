@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Студенческий совет</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Пароль</string>
+    <string name="action_sign_in"></string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_projects">Проекты</string>
+    <string-array name="status">
+        <item>активист</item>
+        <item>руководитель проекта</item>
+        <item>руководитель направления</item>
+        <item>заместитель председателя</item>
+        <item>председатель</item>
+    </string-array>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Настройки</string>
+    <string name="title_activity_project">Проект</string>
+    <string name="title_activity_task">Задача</string>
+    <string name="title_activity_tasks">Задачи</string>
+    <string name="title_activity_edit_project">Проект</string>
+    <string name="title_activity_edit_task">Задача</string>
+    <string name="FIO">Фамилия, имя</string>
+    <string name="role">роль</string>
+
+</resources>
