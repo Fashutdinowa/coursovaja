@@ -13,8 +13,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TabHost;
 import android.widget.Toast;
 
+import com.example.dilyara.coursovaja.DataBase.DataBaseMetods;
 import com.example.dilyara.coursovaja.DataBase.GlobalData;
 import com.example.dilyara.coursovaja.R;
 import com.example.dilyara.coursovaja.entity.Role;
@@ -40,6 +42,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        DataBaseMetods.Adddata(this);
+
     }
 
     public void onMyButtonClick(View view) {
@@ -70,29 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         if (!GlobalData.user.Password.equals(password.getText().toString())) {
             errorpass = true;
             password.setTextColor(Color.RED);
-            Toast.makeText(this, "Пароль неверный. Проверьте правильность ввода пароля и повторите попытку", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        cursor.close();
-        cursor = mDb.rawQuery("SELECT * FROM Ways", null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            GlobalData.ways.add(new Way(cursor.getInt(0), cursor.getString(1)));
-            cursor.moveToNext();
-        }
-        cursor.close();
-        cursor = mDb.rawQuery("SELECT * FROM Roles", null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            GlobalData.roles.add(new Role(cursor.getInt(0), cursor.getString(1)));
-            cursor.moveToNext();
-        }
-        cursor.close();
-        cursor = mDb.rawQuery("SELECT * FROM Status", null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            GlobalData.status.add(new Status(cursor.getInt(0), cursor.getString(1)));
-            cursor.moveToNext();
+           return;
         }
         cursor.close();
         mDb.close();
@@ -120,4 +102,11 @@ public class LoginActivity extends AppCompatActivity {
         } catch (Exception e) {
         }
     }
+
+    public  void onClickRegistration (View view){
+        Intent intent = new Intent(LoginActivity.this, Registration.class);
+        startActivity(intent);
+    }
+
+
 }

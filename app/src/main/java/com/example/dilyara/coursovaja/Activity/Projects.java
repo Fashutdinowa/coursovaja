@@ -54,8 +54,8 @@ public class Projects extends AppCompatActivity
         ListView listView = (ListView)findViewById(R.id.listProj);
         TextView header = (TextView)findViewById(R.id.textView7);
         Cursor cursor = DataBaseMetods.SelectProjects(this);
-        SimpleCursorAdapter userAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_2,
-                cursor, new String []{"Name", "Status"}, new int[]{android.R.id.text1, android.R.id.text2}, 0);
+        SimpleCursorAdapter userAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1,
+                cursor, new String []{"Name"}, new int[]{android.R.id.text1, android.R.id.text2}, 0);
         listView.setAdapter(userAdapter);
         if (cursor.getCount() > 0)
             header.setText("Найдено элементов: " + String.valueOf(cursor.getCount()));

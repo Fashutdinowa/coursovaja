@@ -104,7 +104,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/registration"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                android:textColor="@color/corporativColor"/>/>
+                android:textColor="@color/corporativColor"
+                android:onClick="onClickRegistration"/>
+            />
 
         </LinearLayout>
     </ScrollView>

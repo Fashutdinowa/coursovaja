@@ -12,4 +12,8 @@ public class Role {
         ID = id;
         Name = name;
     }
+    @Override
+    public String toString(){
+        return Name;
+    }
 }

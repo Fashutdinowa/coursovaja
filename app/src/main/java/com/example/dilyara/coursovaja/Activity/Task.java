@@ -104,7 +104,7 @@ public class Task extends AppCompatActivity
         }
         if (id == R.id.action_settings1) {
             if (GlobalData.user.Role>1) {
-                DataBaseMetods.Delete("Tasks", Long.toString(t));
+                DataBaseMetods.Delete(this, "Tasks", Long.toString(t));
                 this.finish();
             }
             return true;
