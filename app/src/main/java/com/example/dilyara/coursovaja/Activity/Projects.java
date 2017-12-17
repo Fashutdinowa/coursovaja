@@ -22,8 +22,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.dilyara.coursovaja.DataBase.DataBaseMetods;
 import com.example.dilyara.coursovaja.DataBase.GlobalData;
 import com.example.dilyara.coursovaja.R;
+import com.example.dilyara.coursovaja.entity.*;
 
 import org.harrix.sqliteexample.DatabaseHelper;
 
@@ -32,8 +34,6 @@ import java.io.IOException;
 public class Projects extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private DatabaseHelper mDBHelper;
-    private SQLiteDatabase mDb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,29 +53,14 @@ public class Projects extends AppCompatActivity
         // получаем экземпляр элемента ListView
         ListView listView = (ListView)findViewById(R.id.listProj);
         TextView header = (TextView)findViewById(R.id.textView7);
-        mDBHelper = new DatabaseHelper(this);
-
-        try {
-            mDBHelper.updateDataBase();
-        } catch (IOException mIOException) {
-            throw new Error("UnableToUpdateDatabase");
-        }
-
-        try {
-            mDb = mDBHelper.getWritableDatabase();
-        } catch (SQLException mSQLException) {
-            throw mSQLException;
-        }
-        String[] catNames = new String[]{"Name", "Status"};
-        Cursor cursor = mDb.rawQuery("SELECT * FROM Projects WHERE ProjectManeger = "+ GlobalData.user.ID, null);
+        Cursor cursor = DataBaseMetods.SelectProjects(this);
         SimpleCursorAdapter userAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_2,
-                cursor, catNames, new int[]{android.R.id.text1, android.R.id.text2}, 0);
+                cursor, new String []{"Name", "Status"}, new int[]{android.R.id.text1, android.R.id.text2}, 0);
         listView.setAdapter(userAdapter);
-        if(cursor.getCount()>0)
+        if (cursor.getCount() > 0)
             header.setText("Найдено элементов: " + String.valueOf(cursor.getCount()));
         else
-            header.setText("Проектов нет");
-        cursor.close();
+            header.setText("Задач нет");
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View itemClicked, int position,

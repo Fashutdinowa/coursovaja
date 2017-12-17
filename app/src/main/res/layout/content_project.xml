@@ -40,9 +40,28 @@
                 android:id="@+id/textView6"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
+            <TextView
+                android:text="Направление"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:id="@+id/textView17"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+            <TextView
+                android:text="Статус"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:id="@+id/textView14" />
+
+            <TextView
+                android:text="Статус"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:id="@+id/textView18" />
+
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="200dp">
+                android:layout_height="110dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -52,8 +71,9 @@
                     <TextView
                         android:text="Описание проекта"
                         android:layout_width="match_parent"
-                        android:layout_height="188dp"
+                        android:layout_height="103dp"
                         android:id="@+id/textView11" />
+
                 </LinearLayout>
             </ScrollView>
 
@@ -64,11 +84,22 @@
                 android:id="@+id/textView12"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-            <ExpandableListView
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:headerDividersEnabled="false"
-                android:footerDividersEnabled="false"/>
+                android:layout_height="110dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <ListView
+                        android:layout_width="match_parent"
+                        android:layout_height="213dp"
+                        android:id = "@+id/proj_task"
+                        android:background="@color/corporativColor" />
+                </LinearLayout>
+            </ScrollView>
 
         </LinearLayout>
     </ScrollView>

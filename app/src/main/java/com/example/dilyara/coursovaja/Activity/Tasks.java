@@ -23,6 +23,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dilyara.coursovaja.DataBase.DataBaseMetods;
 import com.example.dilyara.coursovaja.DataBase.GlobalData;
 import com.example.dilyara.coursovaja.R;
 
@@ -53,17 +54,17 @@ public class Tasks extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
         // получаем экземпляр элемента ListView
         ListView listView = (ListView) findViewById(R.id.listTask);
         TextView header = (TextView) findViewById(R.id.textView4);
-        mDBHelper = new DatabaseHelper(this);
-        try {
-            mDb = mDBHelper.getWritableDatabase();
-        } catch (SQLException mSQLException) {
-            throw mSQLException;
-        }
-        Cursor cursor = mDb.rawQuery("SELECT * FROM Tasks WHERE Responsible = "+GlobalData.user.ID, null);
-        cursor.moveToFirst();
+//        mDBHelper = new DatabaseHelper(this);
+//        try {
+//            mDb = mDBHelper.getWritableDatabase();
+//        } catch (SQLException mSQLException) {
+//            throw mSQLException;
+//        }
+        Cursor cursor = DataBaseMetods.SelectTasks(this);
         SimpleCursorAdapter userAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_2,
                 cursor, new String []{"Name", "Status"}, new int[]{android.R.id.text1, android.R.id.text2}, 0);
         listView.setAdapter(userAdapter);
@@ -130,7 +131,7 @@ public class Tasks extends AppCompatActivity
             // Handle the camera action
 
         } else if (id == R.id.nav_gallery) {
-            Intent intent = new Intent(this, Task.class);
+            Intent intent = new Intent(this, Tasks.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_slideshow) {

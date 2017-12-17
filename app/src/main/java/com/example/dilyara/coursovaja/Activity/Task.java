@@ -1,5 +1,6 @@
 package com.example.dilyara.coursovaja.Activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -19,6 +20,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dilyara.coursovaja.DataBase.DataBaseMetods;
 import com.example.dilyara.coursovaja.DataBase.GlobalData;
 import com.example.dilyara.coursovaja.R;
 import com.example.dilyara.coursovaja.entity.Way;
@@ -28,8 +30,6 @@ import org.harrix.sqliteexample.DatabaseHelper;
 public class Task extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Intent intent;
-    private DatabaseHelper mDBHelper;
-    private SQLiteDatabase mDb;
     long id_proj;
     long t;
     @Override
@@ -46,17 +46,11 @@ public class Task extends AppCompatActivity
         setSupportActionBar(toolbar);
         intent = getIntent();
         t = intent.getLongExtra("tata", 0);
-        mDBHelper = new DatabaseHelper(this);
-        try {
-            mDb = mDBHelper.getWritableDatabase();
-        } catch (SQLException mSQLException) {
-            throw mSQLException;
-        }
-        Cursor cursor = mDb.rawQuery("SELECT * FROM Tasks WHERE _id = " + Long.toString(t), null);
+        Cursor cursor = DataBaseMetods.SelectTask(this, t);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             name.setText(cursor.getString(1));
-            stat.setText(GlobalData.status.get(cursor.getInt(2)).Name);
+            stat.setText(GlobalData.status.get(cursor.getInt(2)-1).Name);
             date.setText(cursor.getString(3) + " - " + cursor.getString(4));
             id_proj = cursor.getInt(5);
             deskript.setText(cursor.getString(6));
@@ -64,17 +58,17 @@ public class Task extends AppCompatActivity
             cursor.moveToNext();
         }
         cursor.close();
-        cursor = mDb.rawQuery("SELECT Name FROM Projects WHERE _id = " + id_proj, null);
+        cursor = DataBaseMetods.SelectProject(this, id_proj);
         cursor.moveToFirst();
-        project.setText(cursor.getString(0));
+        project.setText(cursor.getString(1));
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
         cursor.close();
     }
 
@@ -109,11 +103,9 @@ public class Task extends AppCompatActivity
             return true;
         }
         if (id == R.id.action_settings1) {
-            mDBHelper = new DatabaseHelper(this);
-            try {
-                mDb = mDBHelper.getWritableDatabase();
-            } catch (SQLException mSQLException) {
-                throw mSQLException;
+            if (GlobalData.user.Role>1) {
+                DataBaseMetods.Delete("Tasks", Long.toString(t));
+                this.finish();
             }
             return true;
         }
