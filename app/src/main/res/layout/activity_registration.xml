@@ -81,6 +81,7 @@
                     android:textColor="@color/corporativColor"
                     android:textColorHint="@color/corporativColor"
                     android:ems="10"
+                    android:onClick="LoginOnClick"
                     android:id="@+id/login"
                     android:layout_below="@+id/vk"
                     android:layout_alignParentLeft="true"

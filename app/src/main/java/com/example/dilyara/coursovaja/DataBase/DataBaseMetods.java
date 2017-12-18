@@ -244,6 +244,21 @@ public class DataBaseMetods {
         }
         return rezult;
     }
+    static public boolean SelectUser(Context context, String Login)
+    {
+        int count =0;
+        Connect(context);
+        Cursor cursor = mDb.rawQuery("SELECT * FROM Users WHERE Login Like '" + Login + "'", null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            count++;
+        }
+        if (count>0)
+            return false;
+        else
+            return true;
+    }
+
 
 
 

@@ -11,19 +11,9 @@
     tools:context="com.example.dilyara.coursovaja.Activity.EditTask"
     android:background="@color/corporativWhite">
 
-    <Button
-        android:text="Применить"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/button8"
-        style="@style/Widget.AppCompat.Button.Borderless" />
-
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="60dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -31,7 +21,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical" >
 
             <EditText
@@ -40,38 +30,86 @@
                 android:inputType="textPersonName"
                 android:ems="10"
                 android:id="@+id/editText6"
+                android:textColor="@color/corporativColor"
+                android:textColorHint="@color/corporativColor"
                 android:hint="Название" />
 
-            <EditText
+            <TextView
+                android:text="Статус"
+                android:textColor="@color/corporativColor"
+                android:textColorHint="@color/corporativColor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/editText8"
-                android:hint="Проект" />
+                android:id="@+id/textView20" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinner4" />
+
+            <TextView
+                android:text="Проект"
+                android:textColor="@color/corporativColor"
+                android:textColorHint="@color/corporativColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView21" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinner5" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="date"
                 android:ems="10"
+                android:textColor="@color/corporativColor"
+                android:textColorHint="@color/corporativColor"
                 android:id="@+id/editText7"
-                android:hint="Дата завершения" />
-
-            <AutoCompleteTextView
-                android:layout_width="match_parent"
-                android:layout_height="134dp"
-                android:id="@+id/autoCompleteTextView3"
-                android:completionHint="Описание"
-                android:text="Здесь будет распологаться описание с подродной информацией и полезными указаниями" />
+                android:hint="Дата начала (в формате ДД.ММ.ГГГГ)" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
+                android:inputType="date"
+                android:textColor="@color/corporativColor"
+                android:textColorHint="@color/corporativColor"
                 android:ems="10"
-                android:id="@+id/editText9"
-                android:hint="Ответственный" />
+                android:id="@+id/editText"
+                android:hint="Дата завершения(в формате ДД.ММ.ГГГГ)" />
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:textColor="@color/corporativColor"
+                android:textColorHint="@color/corporativColor"
+                android:layout_height="134dp"
+                android:id="@+id/autoCompleteTextView3"
+                android:completionHint="Описание"
+                android:hint="Описание задачи" />
+
+            <TextView
+                android:text="Ответственный"
+                android:textColor="@color/corporativColor"
+                android:textColorHint="@color/corporativColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView22" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinner6" />
+
+            <Button
+                android:text="Применить"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/corporativColor"
+                android:textColor="@color/corporativWhite"
+                android:id="@+id/button7" />
+
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

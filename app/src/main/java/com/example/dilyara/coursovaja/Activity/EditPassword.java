@@ -13,7 +13,7 @@ import com.example.dilyara.coursovaja.R;
 
 public class EditPassword extends AppCompatActivity {
 
-    boolean error;
+    boolean error = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
