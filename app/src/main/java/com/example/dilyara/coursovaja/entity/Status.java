@@ -14,6 +14,9 @@ public class Status {
         ID = id;
         Name = name;
     }
+    public String toString(){
+        return Name;
+    }
 
 
 }

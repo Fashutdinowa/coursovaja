@@ -12,4 +12,7 @@ public class Way {
         ID = id;
         Name = name;
     }
+    public String toString(){
+        return Name;
+    }
 }

@@ -26,24 +26,25 @@ public class Registration extends AppCompatActivity {
     }
 
     public void RegButtonClick(View view) {
-        EditText name = (EditText) findViewById(R.id.name);
-        EditText surname = (EditText) findViewById(R.id.last_name);
+        EditText name = (EditText) findViewById(R.id.last_name);
+        EditText surname = (EditText) findViewById(R.id.name);
         Spinner status = (Spinner) findViewById(R.id.faculty);
-        EditText email = (EditText) findViewById(R.id.email);
         EditText login = (EditText) findViewById(R.id.login);
         EditText password = (EditText) findViewById(R.id.password);
 
         try {
 
-            if (DataBaseMetods.AddDataUser(this, name.getText().toString(), surname.getText().toString(), status.getSelectedItemPosition(), email.getText().toString(), login.getText().toString(), password.getText().toString()) > 0) {
+            if (DataBaseMetods.AddDataUser(this, name.getText().toString(), surname.getText().toString(), status.getSelectedItemPosition(), login.getText().toString(), password.getText().toString()) > 0) {
                 Intent intent = new Intent(Registration.this, LoginActivity.class);
                 startActivity(intent);
-            } else {
+            }
+            else {
+                return;
 
             }
         }
         catch (Exception e) {
-
+            return;
         }
     }
 

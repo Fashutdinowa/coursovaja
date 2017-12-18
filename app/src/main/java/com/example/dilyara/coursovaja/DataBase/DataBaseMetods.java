@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.system.StructStat;
 import android.view.ViewOutlineProvider;
 import android.widget.Toast;
 
@@ -37,6 +38,13 @@ public class DataBaseMetods {
             throw mSQLException;
         }
     }
+    static public void Delete(Context context, String table, String id){
+        Connect(context);
+        mDb.delete(table, "_id = ?", new String[]{String.valueOf(id)});
+        Toast.makeText(context, "Удаление успешно", Toast.LENGTH_SHORT).show();
+
+    }
+    /////////////////////////////////////////////////////////////////////////////////
     static public void Adddata(Context context)
     {
         Connect(context);
@@ -62,6 +70,7 @@ public class DataBaseMetods {
         }
         cursor.close();
     }
+    ////////////////////////////////////////////////////////////////////////////////////////
     static public Cursor SelectTasks(Context context) {
         Connect(context);
         Cursor cursor = mDb.rawQuery("SELECT * FROM Tasks WHERE Responsible = " + GlobalData.user.ID, null);
@@ -74,6 +83,52 @@ public class DataBaseMetods {
         cursor.moveToFirst();
         return cursor;
     }
+    static public long AddDataTasks(Context context, String Name, long Status, String CrDate, String CompDate, long Project, String Descr, long Resp){
+        Connect(context);
+        ContentValues cv = new ContentValues();
+        cv.put("Name", Name);
+        cv.put("Status", Status);
+        cv.put("CreateDate", CrDate);
+        cv.put("CompletionDate", CompDate);
+        cv.put("Project", Project );
+        cv.put("Description", Descr);
+        cv.put("Responsible", Resp);
+        long rezult = mDb.insert("Tasks",null, cv);
+        if (rezult>0)
+        {
+            Toast.makeText(context, "Задача добавлена", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
+        }
+        return rezult;
+
+    }
+    static public long UpdateDataTasks(Context context, long id, String Name, long Status, String CrDate, String CompDate, long Project, String Descr, long Resp){
+        Connect(context);
+        ContentValues cv = new ContentValues();
+        cv.put("Name", Name);
+        cv.put("Status", Status);
+        cv.put("CreateDate", CrDate);
+        cv.put("CompletionDate", CompDate);
+        cv.put("Project", Project );
+        cv.put("Description", Descr);
+        cv.put("Responsible", Resp);
+        long rezult = mDb.update("Tasks", cv, "_id = "+Long.toString(id), null);
+        if (rezult>0)
+        {
+            Toast.makeText(context, "Задача обновлена", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
+        }
+        return rezult;
+
+    }
+
+    /////////////////////////////////////////////////////////////////////
     static public Cursor SelectProjects(Context context)
     {
         Connect(context);
@@ -93,19 +148,56 @@ public class DataBaseMetods {
         cursor.moveToFirst();
         return cursor;
     }
-    static public void Delete(Context context, String table, String id){
+    static public long AddDataProject(Context context, String Name, long Status,long Way, String CrDate, String CompDate, String Descr, long Resp){
         Connect(context);
-        mDb.delete(table, "_id = ?", new String[]{String.valueOf(id)});
-        Toast.makeText(context, "Удаление успешно", Toast.LENGTH_SHORT).show();
-
+        ContentValues cv = new ContentValues();
+        cv.put("Name", Name);
+        cv.put("Status", Status);
+        cv.put("Way", Way);
+        cv.put("CreateDate", CrDate);
+        cv.put("CompletionDate", CompDate);
+        cv.put("Description", Descr);
+        cv.put("ProjectManeger", Resp);
+        long rezult = mDb.insert("Projects",null, cv);
+        if (rezult>0)
+        {
+            Toast.makeText(context, "Проект добавлен", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
+        }
+        return rezult;
     }
-    static public long AddDataUser(Context context, String Name, String Surname, long Role, String Email, String Login, String Password){
+
+    static public long UpdateDataProject(Context context,long id, String Name, long Status,long Way, String CrDate, String CompDate, String Descr, long Resp){
+        Connect(context);
+        ContentValues cv = new ContentValues();
+        cv.put("Name", Name);
+        cv.put("Status", Status);
+        cv.put("Way", Way);
+        cv.put("CreateDate", CrDate);
+        cv.put("CompletionDate", CompDate);
+        cv.put("Description", Descr);
+        cv.put("ProjectManeger", Resp);
+        long rezult = mDb.update("Projects", cv, "_id ="+Long.toString(id), null);
+        if (rezult>0)
+        {
+            Toast.makeText(context, "Проект обновлен", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
+        }
+        return rezult;
+    }
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    static public long AddDataUser(Context context, String Name, String Surname, long Role, String Login, String Password){
         Connect(context);
         ContentValues cv = new ContentValues();
         cv.put("Name", Name);
         cv.put("Surname", Surname);
         cv.put("Role", Role);
-        cv.put("Email", Email);
         cv.put("Login", Login);
         cv.put("Password", Password);
         long rezult = mDb.insert("Users",null, cv);
@@ -119,7 +211,41 @@ public class DataBaseMetods {
             Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
         }
         return rezult;
-
     }
+    static public long UpdateDataUser(Context context, long id, String  Name, String Surname, long Role){
+        Connect(context);
+        ContentValues cv = new ContentValues();
+        cv.put("Name", Name);
+        cv.put("Surname", Surname);
+        cv.put("Role", Role);
+        long rezult = mDb.update("Users",cv, "_id ="+Long.toString(id), null);
+        if (rezult>0)
+        {
+            Toast.makeText(context, "Данные обновлены", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
+        }
+        return rezult;
+    }
+    static public long UpdatePassword(Context context, long id, String Password){
+        Connect(context);
+        ContentValues cv = new ContentValues();
+        cv.put("Password", Password);
+        long rezult = mDb.update("Users",cv, "_id ="+Long.toString(id), null);
+        if (rezult>0)
+        {
+            Toast.makeText(context, "Данные обновлены", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
+        }
+        return rezult;
+    }
+
+
+
 
 }

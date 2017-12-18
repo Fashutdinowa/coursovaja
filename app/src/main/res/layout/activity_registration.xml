@@ -35,6 +35,8 @@
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
                     android:hint="Фамилия"
+                    android:textColor="@color/corporativColor"
+                    android:textColorHint="@color/corporativColor"
                     android:ems="10"
                     android:id="@+id/name">
                 </EditText>
@@ -46,6 +48,8 @@
                     android:hint="Имя"
                     android:ems="10"
                     android:id="@+id/last_name"
+                    android:textColor="@color/corporativColor"
+                    android:textColorHint="@color/corporativColor"
                     android:layout_below="@+id/name"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
@@ -54,6 +58,8 @@
                     android:text="Статус:"
                     android:layout_width="match_parent"
                     android:id="@+id/textView2"
+                    android:textColor="@color/corporativColor"
+                    android:textColorHint="@color/corporativColor"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:layout_height="20dp" />
 
@@ -70,19 +76,10 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
-                    android:ems="10"
-                    android:id="@+id/email"
-                    android:hint="@string/prompt_email"
-                    android:layout_below="@+id/phone"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:inputType="textPersonName"
                     android:hint="Логин"
+                    android:textColor="@color/corporativColor"
+                    android:textColorHint="@color/corporativColor"
                     android:ems="10"
                     android:id="@+id/login"
                     android:layout_below="@+id/vk"
@@ -95,6 +92,8 @@
                     android:inputType="textPassword"
                     android:ems="10"
                     android:id="@+id/password"
+                    android:textColor="@color/corporativColor"
+                    android:textColorHint="@color/corporativColor"
                     android:hint="Пароль"
                     android:layout_below="@+id/login"
                     android:layout_alignParentLeft="true"
@@ -105,10 +104,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/button"
-            android:text="Регистрация и вход"
+            android:text="Регистрация"
+            android:textColor="@color/corporativWhite"
             android:layout_alignParentLeft="true"
             android:onClick="RegButtonClick"
-            android:background="#f3f3f3"
+            android:background="@color/corporativColor"
             style="@style/Widget.AppCompat.Button.Borderless" />
 
     </LinearLayout>
