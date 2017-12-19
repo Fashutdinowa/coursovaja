@@ -31,13 +31,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:id="@+id/textView5"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/corporativColor"/>
 
             <TextView
                 android:text="Статус"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:id="@+id/textView8"
+                android:textColor="@color/corporativColor"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
             <TextView
@@ -45,6 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:id="@+id/textView13"
+                android:textColor="@color/corporativColor"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
             <TextView
@@ -52,6 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:onClick="onClickProject"
+                android:textColor="@color/corporativColor"
                 android:id="@+id/textView15"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -66,6 +70,7 @@
 
                     <TextView
                         android:text="Описание"
+                        android:textColor="@color/corporativColor"
                         android:layout_width="match_parent"
                         android:layout_height="146dp"
                         android:id="@+id/textView16" />
@@ -73,6 +78,7 @@
             </ScrollView>
             <TextView
                 android:text="Ответственный"
+                android:textColor="@color/corporativColor"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:id="@+id/textView19"

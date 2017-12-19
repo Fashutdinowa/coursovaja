@@ -58,30 +58,30 @@ public class Tasks extends AppCompatActivity
         // получаем экземпляр элемента ListView
         ListView listView = (ListView) findViewById(R.id.listTask);
         TextView header = (TextView) findViewById(R.id.textView4);
-//        mDBHelper = new DatabaseHelper(this);
-//        try {
-//            mDb = mDBHelper.getWritableDatabase();
-//        } catch (SQLException mSQLException) {
-//            throw mSQLException;
-//        }
-        Cursor cursor = DataBaseMetods.SelectTasks(this);
-        SimpleCursorAdapter userAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1,
-                cursor, new String []{"Name"}, new int[]{android.R.id.text1, android.R.id.text2}, 0);
-        listView.setAdapter(userAdapter);
-        if (cursor.getCount() > 0)
-            header.setText("Найдено элементов: " + String.valueOf(cursor.getCount()));
-        else
-            header.setText("Задач нет");
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View itemClicked, int position,
-                                    long id) {
-                Intent intent = new Intent(Tasks.this, Task.class);
-                id_task = id;
-                intent.putExtra("tata", id);
-                startActivity(intent);
-            }
-        });
+        try {
+            Cursor cursor = DataBaseMetods.SelectTasks(this);
+            SimpleCursorAdapter userAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1,
+                    cursor, new String[]{"Name"}, new int[]{android.R.id.text1, android.R.id.text2}, 0);
+            listView.setAdapter(userAdapter);
+            if (cursor.getCount() > 0)
+                header.setText("Найдено элементов: " + String.valueOf(cursor.getCount()));
+            else
+                header.setText("Задач нет");
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View itemClicked, int position,
+                                        long id) {
+                    Intent intent = new Intent(Tasks.this, Task.class);
+                    id_task = id;
+                    intent.putExtra("tata", id);
+                    startActivity(intent);
+                }
+            });
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

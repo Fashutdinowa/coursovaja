@@ -48,6 +48,9 @@ public class DataBaseMetods {
     static public void Adddata(Context context)
     {
         Connect(context);
+        GlobalData.ways.clear();
+        GlobalData.roles.clear();
+        GlobalData.status.clear();
         Cursor cursor = mDb.rawQuery("SELECT * FROM Ways", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -87,10 +90,10 @@ public class DataBaseMetods {
         Connect(context);
         ContentValues cv = new ContentValues();
         cv.put("Name", Name);
-        cv.put("Status", Status);
+        cv.put("Status", Status-1);
         cv.put("CreateDate", CrDate);
         cv.put("CompletionDate", CompDate);
-        cv.put("Project", Project );
+        cv.put("Project", Project);
         cv.put("Description", Descr);
         cv.put("Responsible", Resp);
         long rezult = mDb.insert("Tasks",null, cv);
@@ -191,13 +194,21 @@ public class DataBaseMetods {
         }
         return rezult;
     }
+    static public Cursor SelectAllProject(Context context)
+    {
+        int count =0;
+        Connect(context);
+        Cursor cursor = mDb.rawQuery("SELECT * FROM Projects", null);
+        cursor.moveToFirst();
+        return cursor;
+    }
     //////////////////////////////////////////////////////////////////////////////////////////////
     static public long AddDataUser(Context context, String Name, String Surname, long Role, String Login, String Password){
         Connect(context);
         ContentValues cv = new ContentValues();
         cv.put("Name", Name);
         cv.put("Surname", Surname);
-        cv.put("Role", Role);
+        cv.put("Role", Role+1);
         cv.put("Login", Login);
         cv.put("Password", Password);
         long rezult = mDb.insert("Users",null, cv);
@@ -217,7 +228,7 @@ public class DataBaseMetods {
         ContentValues cv = new ContentValues();
         cv.put("Name", Name);
         cv.put("Surname", Surname);
-        cv.put("Role", Role);
+        cv.put("Role", Role+1);
         long rezult = mDb.update("Users",cv, "_id ="+Long.toString(id), null);
         if (rezult>0)
         {
@@ -252,12 +263,22 @@ public class DataBaseMetods {
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             count++;
+            cursor.moveToNext();
         }
         if (count>0)
             return false;
         else
             return true;
     }
+    static public Cursor SelectAllUser(Context context)
+    {
+        int count =0;
+        Connect(context);
+        Cursor cursor = mDb.rawQuery("SELECT * FROM Users", null);
+        cursor.moveToFirst();
+        return cursor;
+    }
+
 
 
 
