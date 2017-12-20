@@ -54,7 +54,7 @@ public class Task extends AppCompatActivity
             date.setText(cursor.getString(3) + " - " + cursor.getString(4));
             id_proj = cursor.getInt(5);
             deskript.setText(cursor.getString(6));
-            otvewetst.setText(GlobalData.user.Name+" "+GlobalData.user.Surname);
+            otvewetst.setText(DataBaseMetods.SelectUserID(this, Long.toString(cursor.getLong(7))));
             cursor.moveToNext();
         }
         cursor.close();

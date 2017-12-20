@@ -4,7 +4,7 @@
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
-        android:title="Изменить статус"
+        android:title="Редактировать"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_settings1"

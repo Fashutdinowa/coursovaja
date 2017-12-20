@@ -94,7 +94,7 @@ public class EditTask extends AppCompatActivity
                 comoletionDate.setText(cursor.getString(4));
                 project.setSelection(cursor.getInt(5)-1);
                 deskription.setText(cursor.getString(6));
-               users.setSelection(cursor.getInt(7)-1);
+                users.setSelection(cursor.getInt(7)-1);
                 cursor.moveToNext();
             }
 //            cursor.close();
@@ -124,9 +124,9 @@ public class EditTask extends AppCompatActivity
                     Date comp = format.parse(comoletionDate.getText().toString());
                     if (create.before(comp)) {
                         if (t > -1) {
-                            DataBaseMetods.UpdateDataTasks(this, t, name.getText().toString(), status.getSelectedItemId(), cteateDate.getText().toString(), comoletionDate.getText().toString(), project.getSelectedItemId(), deskription.getText().toString(), users.getSelectedItemId());
+                            DataBaseMetods.UpdateDataTasks(this, t, name.getText().toString(), status.getSelectedItemId()+1, cteateDate.getText().toString(), comoletionDate.getText().toString(), project.getSelectedItemId(), deskription.getText().toString(), users.getSelectedItemId());
                         } else {
-                            DataBaseMetods.AddDataTasks(this, name.getText().toString(), status.getSelectedItemId(), cteateDate.getText().toString(), comoletionDate.getText().toString(), project.getSelectedItemId(), deskription.getText().toString(), users.getSelectedItemId());
+                            DataBaseMetods.AddDataTasks(this, name.getText().toString(), status.getSelectedItemId()+1, cteateDate.getText().toString(), comoletionDate.getText().toString(), project.getSelectedItemId(), deskription.getText().toString(), users.getSelectedItemId());
                         }
                     } else {
                         error = true;

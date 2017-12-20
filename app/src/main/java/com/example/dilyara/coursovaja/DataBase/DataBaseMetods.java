@@ -42,6 +42,8 @@ public class DataBaseMetods {
         Connect(context);
         mDb.delete(table, "_id = ?", new String[]{String.valueOf(id)});
         Toast.makeText(context, "Удаление успешно", Toast.LENGTH_SHORT).show();
+        mDb.close();
+        mDBHelper.close();
 
     }
     /////////////////////////////////////////////////////////////////////////////////
@@ -90,7 +92,7 @@ public class DataBaseMetods {
         Connect(context);
         ContentValues cv = new ContentValues();
         cv.put("Name", Name);
-        cv.put("Status", Status-1);
+        cv.put("Status", Status);
         cv.put("CreateDate", CrDate);
         cv.put("CompletionDate", CompDate);
         cv.put("Project", Project);
@@ -105,13 +107,14 @@ public class DataBaseMetods {
         {
             Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
         }
+        mDb.close();
+        mDBHelper.close();
         return rezult;
 
     }
     static public long UpdateDataTasks(Context context, long id, String Name, long Status, String CrDate, String CompDate, long Project, String Descr, long Resp){
         Connect(context);
         ContentValues cv = new ContentValues();
-        cv.put("Name", Name);
         cv.put("Status", Status);
         cv.put("CreateDate", CrDate);
         cv.put("CompletionDate", CompDate);
@@ -127,13 +130,14 @@ public class DataBaseMetods {
         {
             Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
         }
+        mDb.close();
+        mDBHelper.close();
         return rezult;
 
     }
 
     /////////////////////////////////////////////////////////////////////
-    static public Cursor SelectProjects(Context context)
-    {
+    static public Cursor SelectProjects(Context context){
         Connect(context);
         Cursor cursor = mDb.rawQuery("SELECT * FROM Projects WHERE ProjectManeger = "+ GlobalData.user.ID, null);
         cursor.moveToFirst();
@@ -170,6 +174,8 @@ public class DataBaseMetods {
         {
             Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
         }
+        mDb.close();
+        mDBHelper.close();
         return rezult;
     }
 
@@ -192,6 +198,8 @@ public class DataBaseMetods {
         {
             Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
         }
+        mDb.close();
+        mDBHelper.close();
         return rezult;
     }
     static public Cursor SelectAllProject(Context context)
@@ -221,6 +229,8 @@ public class DataBaseMetods {
         {
             Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
         }
+        mDb.close();
+        mDBHelper.close();
         return rezult;
     }
     static public long UpdateDataUser(Context context, long id, String  Name, String Surname, long Role){
@@ -238,6 +248,8 @@ public class DataBaseMetods {
         {
             Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
         }
+        mDb.close();
+        mDBHelper.close();
         return rezult;
     }
     static public long UpdatePassword(Context context, long id, String Password){
@@ -253,6 +265,8 @@ public class DataBaseMetods {
         {
             Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
         }
+        mDb.close();
+        mDBHelper.close();
         return rezult;
     }
     static public boolean SelectUser(Context context, String Login)
@@ -277,6 +291,18 @@ public class DataBaseMetods {
         Cursor cursor = mDb.rawQuery("SELECT * FROM Users", null);
         cursor.moveToFirst();
         return cursor;
+    }
+    static public String SelectUserID(Context context, String id)
+    {
+        String Fio = "";
+        Connect(context);
+        Cursor cursor = mDb.rawQuery("SELECT * FROM Users WHERE _id =" + id, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Fio+=cursor.getString(1)+" "+cursor.getString(2);
+            cursor.moveToNext();
+        }
+        return Fio;
     }
 
 

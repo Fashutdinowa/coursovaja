@@ -60,7 +60,7 @@ public class Projects extends AppCompatActivity
         if (cursor.getCount() > 0)
             header.setText("Найдено элементов: " + String.valueOf(cursor.getCount()));
         else
-            header.setText("Задач нет");
+            header.setText("Проектов нет");
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View itemClicked, int position,

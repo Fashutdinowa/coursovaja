@@ -29,7 +29,7 @@ public class EditUsers extends AppCompatActivity {
         EditText SurName = (EditText) findViewById(R.id.editText11);
         Name.setText(GlobalData.user.Name);
         SurName.setText(GlobalData.user.Surname);
-        status.setSelection(GlobalData.user.Role);
+        status.setSelection((GlobalData.user.Role)-1);
     }
     public void OnEditClick(View view)
     {

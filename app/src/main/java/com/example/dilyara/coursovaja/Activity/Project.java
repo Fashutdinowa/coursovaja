@@ -60,7 +60,7 @@ public class Project extends AppCompatActivity
             way.setText(GlobalData.ways.get(cursor.getInt(3)-1).Name);
             date.setText(cursor.getString(4) + "-" + cursor.getString(5));
             descr.setText(cursor.getString(6));
-            otw.setText(GlobalData.user.Name+" "+GlobalData.user.Surname);
+            otw.setText(DataBaseMetods.SelectUserID(this, Long.toString(cursor.getLong(7))));
             cursor.moveToNext();
         }
         cursor.close();
@@ -110,12 +110,17 @@ public class Project extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        int id_ = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id_ == R.id.action_settings) {
             Intent intent = new Intent(this, EditProject.class);
+            intent.putExtra("tata", id);
             startActivity(intent);
+            return true;
+        }
+        if (id_ == R.id.action_settings1) {
+            DataBaseMetods.Delete(this, "Projects",Long.toString(id));
             return true;
         }
 

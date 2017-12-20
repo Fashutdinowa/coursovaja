@@ -11,23 +11,12 @@
     tools:context="com.example.dilyara.coursovaja.Activity.EditProject"
     android:background="@color/corporativWhite">
 
-    <Button
-        android:text="Применить"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/button11"
-        android:layout_width="match_parent"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        style="@style/Widget.AppCompat.Button.Borderless" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="59dp">
+        android:paddingTop="30dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,20 +31,72 @@
                 android:id="@+id/editText25"
                 android:hint="Название" />
 
+            <TextView
+                android:text="Статус"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView23" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinner2" />
+
+            <TextView
+                android:text="Направление"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView24" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinner3" />
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="date"
                 android:ems="10"
                 android:id="@+id/editText27"
-                android:hint="Дата" />
+                android:hint="Дата начала (в формате ДД.ММ.ГГГГ)" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:ems="10"
+                android:id="@+id/editText4"
+                android:hint="Дата окончания (вформате ДД.ММ.ГГГГ)" />
 
             <AutoCompleteTextView
                 android:layout_width="match_parent"
                 android:layout_height="152dp"
                 android:id="@+id/autoCompleteTextView5"
                 android:completionHint="Описание"
-                android:text="Здесь будет распологаться описание с подродной информацией и полезными указаниями" />
+                android:hint="Здесь будет располагаться описание с подробной информацией и полезными указаниями" />
+
+            <TextView
+                android:text="Руководитель"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView25" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinner7" />
+
+            <Button
+                android:text="Применить"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:onClick="onClickEditPriject"
+                android:id="@+id/button11"
+                android:layout_width="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                style="@style/Widget.AppCompat.Button.Borderless" />
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

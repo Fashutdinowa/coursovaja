@@ -22,12 +22,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" >
-
-            <TextView
-                android:text="TextView"
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView25" />
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/editText6"
+                android:textColor="@color/corporativColor"
+                android:textColorHint="@color/corporativColor"
+                android:hint="Название" />
 
             <TextView
                 android:text="Статус"
@@ -43,38 +46,70 @@
                 android:id="@+id/spinner4" />
 
             <TextView
-                android:text="TextView"
+                android:text="Проект"
+                android:textColor="@color/corporativColor"
+                android:textColorHint="@color/corporativColor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView21" />
 
-            <TextView
-                android:text="TextView"
+            <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView26" />
+                android:id="@+id/spinner5" />
 
-            <TextView
-                android:text="TextView"
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView27" />
+                android:inputType="date"
+                android:ems="10"
+                android:textColor="@color/corporativColor"
+                android:textColorHint="@color/corporativColor"
+                android:id="@+id/editText7"
+                android:hint="Дата начала (в формате ДД.ММ.ГГГГ)"
+                android:onClick="onClickCreate"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:textColor="@color/corporativColor"
+                android:textColorHint="@color/corporativColor"
+                android:ems="10"
+                android:id="@+id/editText"
+                android:hint="Дата завершения(в формате ДД.ММ.ГГГГ)"
+                android:onClick="onClickCompl"/>
+
+            <AutoCompleteTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/autoCompleteTextView"
+                android:textColor="@color/corporativColor"
+                android:textColorHint="@color/corporativColor"
+                android:hint="Описание задачи"/>
 
             <TextView
-                android:text="TextView"
+                android:text="Ответственный"
+                android:textColor="@color/corporativColor"
+                android:textColorHint="@color/corporativColor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView22" />
 
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinner6" />
+
             <Button
                 android:text="Применить"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@color/corporativColor"
                 android:textColor="@color/corporativWhite"
                 android:onClick="onClickTask"
                 android:id="@+id/button7"
-                android:layout_marginTop="320dp" />
+                android:layout_marginTop="80dp" />
 
         </LinearLayout>
     </ScrollView>
