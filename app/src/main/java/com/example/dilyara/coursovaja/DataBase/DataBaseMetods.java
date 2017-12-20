@@ -115,6 +115,7 @@ public class DataBaseMetods {
     static public long UpdateDataTasks(Context context, long id, String Name, long Status, String CrDate, String CompDate, long Project, String Descr, long Resp){
         Connect(context);
         ContentValues cv = new ContentValues();
+        cv.put("Name", Name);
         cv.put("Status", Status);
         cv.put("CreateDate", CrDate);
         cv.put("CompletionDate", CompDate);

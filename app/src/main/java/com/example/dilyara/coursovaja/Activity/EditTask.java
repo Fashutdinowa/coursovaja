@@ -146,7 +146,7 @@ public class EditTask extends AppCompatActivity
                 Toast.makeText(this, "Неверный формат даты", Toast.LENGTH_SHORT).show();
                 cteateDate.setTextColor(Color.RED);
             }
-        }
+       }
         catch (Exception e)
         {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
