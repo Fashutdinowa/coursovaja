@@ -66,6 +66,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         if (GlobalData.user == null) {
             login.setTextColor(Color.RED);
+            login.setHintTextColor(Color.RED);
             error = true;
             //добавить выделение ошибки красным цветом
             Toast.makeText(this, "Пользователь не найден. Проверьте правильность ввода логина и повторите попытку", Toast.LENGTH_SHORT).show();
@@ -74,7 +75,9 @@ public class LoginActivity extends AppCompatActivity {
         if (!GlobalData.user.Password.equals(password.getText().toString())) {
             errorpass = true;
             password.setTextColor(Color.RED);
-           return;
+            password.setHintTextColor(Color.RED);
+            Toast.makeText(this, "Пароль неверный. Проверьте правильность ввода пароля и повторите попытку", Toast.LENGTH_SHORT).show();
+            return;
         }
         cursor.close();
         mDb.close();
@@ -88,6 +91,7 @@ public class LoginActivity extends AppCompatActivity {
             if (errorpass)
                 password.setText("");
             password.setTextColor(0xFF019EE4);
+            password.setHintTextColor(0xFF019EE4);
             errorpass = false;
         } catch (Exception e) {
         }
@@ -98,6 +102,7 @@ public class LoginActivity extends AppCompatActivity {
             if (error)
                 login.setText("");
             login.setTextColor(0xFF019EE4);
+            login.setHintTextColor(0xFF019EE4);
             error = false;
         } catch (Exception e) {
         }

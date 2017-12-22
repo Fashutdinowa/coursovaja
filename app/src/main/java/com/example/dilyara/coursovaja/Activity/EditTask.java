@@ -113,74 +113,97 @@ public class EditTask extends AppCompatActivity
             EditText name = (EditText) findViewById(R.id.editText6);
             EditText cteateDate = (EditText) findViewById(R.id.editText7);
             EditText comoletionDate = (EditText) findViewById(R.id.editText);
-            AutoCompleteTextView deskription = (AutoCompleteTextView)findViewById(R.id.autoCompleteTextView);
+            AutoCompleteTextView deskription = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
             Spinner status = (Spinner) findViewById(R.id.spinner4);
             Spinner project = (Spinner) findViewById(R.id.spinner5);
             Spinner users = (Spinner) findViewById(R.id.spinner6);
-            if (matches("\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d", cteateDate.getText().toString())) {
-                if (matches("\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d", comoletionDate.getText().toString())) {
-                    SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-                    Date create = format.parse(cteateDate.getText().toString());
-                    Date comp = format.parse(comoletionDate.getText().toString());
-                    if (create.before(comp)) {
-                        if (t > -1) {
-                            DataBaseMetods.UpdateDataTasks(this, t, name.getText().toString(), status.getSelectedItemId()+1, cteateDate.getText().toString(), comoletionDate.getText().toString(), project.getSelectedItemId(), deskription.getText().toString(), users.getSelectedItemId());
+            if (!name.getText().toString().equals("")) {
+                if (!cteateDate.getText().toString().equals("")) {
+                    if (matches("(([0-2][0-9])|(3[0-1]))\\.((0[1-9])|(1[1-2]))\\.20[0-9][0-9]", cteateDate.getText().toString())) {
+                        if (!comoletionDate.getText().toString().equals("")) {
+                            if (matches("(([0-2][0-9])|(3[0-1]))\\.((0[1-9])|(1[1-2]))\\.20[0-9][0-9]", comoletionDate.getText().toString())) {
+                                SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+                                Date create = format.parse(cteateDate.getText().toString());
+                                Date comp = format.parse(comoletionDate.getText().toString());
+                                if (create.before(comp)) {
+                                    if (!deskription.getText().toString().equals("")) {
+                                        if (t > -1) {
+                                            DataBaseMetods.UpdateDataTasks(this, t, name.getText().toString(), status.getSelectedItemId() + 1, cteateDate.getText().toString(), comoletionDate.getText().toString(), project.getSelectedItemId(), deskription.getText().toString(), users.getSelectedItemId());
+                                        } else {
+                                            DataBaseMetods.AddDataTasks(this, name.getText().toString(), status.getSelectedItemId() + 1, cteateDate.getText().toString(), comoletionDate.getText().toString(), project.getSelectedItemId(), deskription.getText().toString(), users.getSelectedItemId());
+                                        }
+                                    } else {
+                                        deskription.setHintTextColor(Color.RED);
+                                        Toast.makeText(this, "Заполните поле описание", Toast.LENGTH_LONG).show();
+                                    }
+                                } else {
+                                    Toast.makeText(this, "Дата старта задачи не может быть позже даты окончания", Toast.LENGTH_SHORT).show();
+                                    cteateDate.setTextColor(Color.RED);
+                                    comoletionDate.setTextColor(Color.RED);
+                                    error = true;
+                                }
+                            } else {
+                                Toast.makeText(this, "Неверный формат даты", Toast.LENGTH_SHORT).show();
+                                comoletionDate.setTextColor(Color.RED);
+                            }
                         } else {
-                            DataBaseMetods.AddDataTasks(this, name.getText().toString(), status.getSelectedItemId()+1, cteateDate.getText().toString(), comoletionDate.getText().toString(), project.getSelectedItemId(), deskription.getText().toString(), users.getSelectedItemId());
+                            comoletionDate.setHintTextColor(Color.RED);
+                            Toast.makeText(this, "Заполните поле дата окончания", Toast.LENGTH_LONG).show();
                         }
                     } else {
-                        error = true;
-                        Toast.makeText(this, "Дата старта проекта не может быть позже даты окончания", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Неверный формат даты", Toast.LENGTH_SHORT).show();
                         cteateDate.setTextColor(Color.RED);
-                        comoletionDate.setTextColor(Color.RED);
                     }
                 } else {
-                    errorcreate = true;
-                    Toast.makeText(this, "Неверный формат даты", Toast.LENGTH_SHORT).show();
-                    comoletionDate.setTextColor(Color.RED);
+                    cteateDate.setHintTextColor(Color.RED);
+                    Toast.makeText(this, "Заполните поле дата начала", Toast.LENGTH_LONG).show();
                 }
+            } else {
+                name.setHintTextColor(Color.RED);
+                Toast.makeText(this, "Заполните поле название", Toast.LENGTH_LONG).show();
             }
-            else
-            {
-                errorcomp = true;
-                Toast.makeText(this, "Неверный формат даты", Toast.LENGTH_SHORT).show();
-                cteateDate.setTextColor(Color.RED);
-            }
-       }
+        }
         catch (Exception e)
         {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
-    public void onClickCreate(View view)
+    public void NameTaskOnClick(View view)
+    {
+        EditText name = (EditText) findViewById(R.id.editText6);
+        name.setHintTextColor(0xFF019EE4);
+        name.setTextColor(0xFF019EE4);
+    }
+    public void CrDateTaskOnClick(View view)
     {
         EditText cteateDate = (EditText) findViewById(R.id.editText7);
-        if (error)        {
-
-            EditText comoletionDate = (EditText) findViewById(R.id.editText);
-            cteateDate.setTextColor(0xFF019EE4);
-            comoletionDate.setTextColor(0xFF019EE4);
-        }
-        if (errorcreate)
+        cteateDate.setHintTextColor(0xFF019EE4);
+        cteateDate.setTextColor(0xFF019EE4);
+        if (error)
         {
-            cteateDate.setTextColor(0xFF019EE4);
+            EditText compDate = (EditText) findViewById(R.id.editText);
+            compDate.setHintTextColor(0xFF019EE4);
+            compDate.setTextColor(0xFF019EE4);
         }
     }
-    public void onClickCompl(View view)
+    public void CompTaskOnClick(View view)
     {
-        EditText comoletionDate = (EditText) findViewById(R.id.editText);
-
-        if (error) {
-
-            EditText cteateDate = (EditText) findViewById(R.id.editText7);
-            cteateDate.setTextColor(0xFF019EE4);
-            comoletionDate.setTextColor(0xFF019EE4);
-        }
-        if (errorcreate)
+        EditText cteateDate = (EditText) findViewById(R.id.editText);
+        cteateDate.setHintTextColor(0xFF019EE4);
+        cteateDate.setTextColor(0xFF019EE4);
+        if (error)
         {
-            comoletionDate.setTextColor(0xFF019EE4);
+            EditText compDate = (EditText) findViewById(R.id.editText7);
+            compDate.setHintTextColor(0xFF019EE4);
+            compDate.setTextColor(0xFF019EE4);
         }
     }
+    public void DeskriptTaskClick(View view)
+    {
+        AutoCompleteTextView deskription = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
+        deskription.setHintTextColor(0xFF019EE4);
+    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
