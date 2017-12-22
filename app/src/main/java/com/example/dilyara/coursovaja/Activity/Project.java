@@ -1,5 +1,8 @@
 package com.example.dilyara.coursovaja.Activity;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -120,8 +123,36 @@ public class Project extends AppCompatActivity
             return true;
         }
         if (id_ == R.id.action_settings1) {
-            DataBaseMetods.Delete(this, "Projects",Long.toString(id));
-            return true;
+            ListView tasks = (ListView) findViewById(R.id.proj_task);
+            if (tasks.getCount()<1) {
+                DataBaseMetods.Delete(this, "Projects", Long.toString(id));
+                return true;
+            }
+            else{
+                AlertDialog.Builder ad;
+                Context context = Project.this;
+                String title = "Удаление проекта";
+                String message = "У данного проекта есть прикреленные задачи. Удалить проект вместе с задачами?";
+                String button1String = "Да";
+                String button2String = "Нет";
+
+                ad = new AlertDialog.Builder(context);
+                ad.setTitle(title);  // заголовок
+                ad.setMessage(message); // сообщение
+                ad.setPositiveButton(button1String, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int arg1) {
+                        DataBaseMetods.DeleteTasksProj(Project.this, Long.toString(id));
+                        DataBaseMetods.Delete(Project.this, "Projects", Long.toString(id));
+                    }
+                });
+                ad.setNegativeButton(button2String, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int arg1) {
+                        return;
+                    }
+                });
+                ad.show();
+            }
+            this.finish();
         }
 
         return super.onOptionsItemSelected(item);

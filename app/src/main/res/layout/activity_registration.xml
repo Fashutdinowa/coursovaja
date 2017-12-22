@@ -38,6 +38,7 @@
                     android:textColor="@color/corporativColor"
                     android:textColorHint="@color/corporativColor"
                     android:ems="10"
+                    android:onClick="NameOnClick"
                     android:id="@+id/name">
                 </EditText>
 
@@ -47,6 +48,7 @@
                     android:inputType="textPersonName"
                     android:hint="Имя"
                     android:ems="10"
+                    android:onClick="SurnameOnClick"
                     android:id="@+id/last_name"
                     android:textColor="@color/corporativColor"
                     android:textColorHint="@color/corporativColor"
@@ -93,6 +95,7 @@
                     android:inputType="textPassword"
                     android:ems="10"
                     android:id="@+id/password"
+                    android:onClick="PasswordOnClick"
                     android:textColor="@color/corporativColor"
                     android:textColorHint="@color/corporativColor"
                     android:hint="Пароль"
