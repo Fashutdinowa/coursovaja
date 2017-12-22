@@ -21,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dilyara.coursovaja.DataBase.DataBaseMetods;
@@ -97,16 +98,13 @@ public class EditTask extends AppCompatActivity
                 users.setSelection(cursor.getInt(7)-1);
                 cursor.moveToNext();
             }
-//            cursor.close();
+            cursor.close();
         }
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
     }
     boolean error = false;
-    boolean errorcomp = false;
-    boolean errorcreate = false;
     public void onClickTask(View view)
     {
         try {
@@ -218,6 +216,10 @@ public class EditTask extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.edit_task, menu);
+        TextView name = (TextView)findViewById(R.id.textView9);
+        TextView role = (TextView)findViewById(R.id.textView10);
+        name.setText(GlobalData.user.Surname+" "+ GlobalData.user.Name);
+        role.setText(GlobalData.roles.get(GlobalData.user.Role-1).Name);
         return true;
     }
 

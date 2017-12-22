@@ -85,6 +85,10 @@ public class Task extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+        TextView name = (TextView)findViewById(R.id.textView9);
+        TextView role = (TextView)findViewById(R.id.textView10);
+        name.setText(GlobalData.user.Surname+" "+ GlobalData.user.Name);
+        role.setText(GlobalData.roles.get(GlobalData.user.Role-1).Name);
         getMenuInflater().inflate(R.menu.task, menu);
         return true;
     }

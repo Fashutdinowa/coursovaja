@@ -87,8 +87,7 @@
                 android:id="@+id/autoCompleteTextView"
                 android:textColor="@color/corporativColor"
                 android:textColorHint="@color/corporativColor"
-                android:hint="Описание задачи"
-                android:onClick="DeskriptTaskClick"/>
+                android:hint="Описание задачи"/>
 
             <TextView
                 android:text="Ответственный"

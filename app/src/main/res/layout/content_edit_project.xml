@@ -77,7 +77,6 @@
                 android:layout_height="152dp"
                 android:id="@+id/autoCompleteTextView5"
                 android:completionHint="Описание"
-                android:onClick="DeskriptClick"
                 android:hint="Здесь будет располагаться описание с подробной информацией и полезными указаниями" />
 
             <TextView

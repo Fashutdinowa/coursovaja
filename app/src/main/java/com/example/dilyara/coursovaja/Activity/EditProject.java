@@ -20,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dilyara.coursovaja.DataBase.DataBaseMetods;
@@ -114,6 +115,10 @@ public class EditProject extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.edit_project, menu);
+        TextView name = (TextView)findViewById(R.id.textView9);
+        TextView role = (TextView)findViewById(R.id.textView10);
+        name.setText(GlobalData.user.Surname+" "+ GlobalData.user.Name);
+        role.setText(GlobalData.roles.get(GlobalData.user.Role-1).Name);
         return true;
     }
 

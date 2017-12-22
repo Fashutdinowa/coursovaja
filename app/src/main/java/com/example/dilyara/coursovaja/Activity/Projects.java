@@ -85,6 +85,10 @@ public class Projects extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+        TextView name = (TextView)findViewById(R.id.textView9);
+        TextView role = (TextView)findViewById(R.id.textView10);
+        name.setText(GlobalData.user.Surname+" "+ GlobalData.user.Name);
+        role.setText(GlobalData.roles.get(GlobalData.user.Role-1).Name);
         if(GlobalData.user.Role>1)
         getMenuInflater().inflate(R.menu.projects, menu);
         return true;
