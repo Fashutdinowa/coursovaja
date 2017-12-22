@@ -30,8 +30,7 @@
                 android:id="@+id/editText6"
                 android:textColor="@color/corporativColor"
                 android:textColorHint="@color/corporativColor"
-                android:hint="Название"
-                android:onClick="NameTaskOnClick"/>
+                android:hint="Название" />
 
             <TextView
                 android:text="Статус"
@@ -68,7 +67,7 @@
                 android:textColorHint="@color/corporativColor"
                 android:id="@+id/editText7"
                 android:hint="Дата начала (в формате ДД.ММ.ГГГГ)"
-                android:onClick="CrDateTaskOnClick"/>
+                android:onClick="onClickCreate"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -79,7 +78,7 @@
                 android:ems="10"
                 android:id="@+id/editText"
                 android:hint="Дата завершения(в формате ДД.ММ.ГГГГ)"
-                android:onClick="CompTaskOnClick"/>
+                android:onClick="onClickCompl"/>
 
             <AutoCompleteTextView
                 android:layout_width="match_parent"
@@ -87,8 +86,7 @@
                 android:id="@+id/autoCompleteTextView"
                 android:textColor="@color/corporativColor"
                 android:textColorHint="@color/corporativColor"
-                android:hint="Описание задачи"
-                android:onClick="DeskriptTaskClick"/>
+                android:hint="Описание задачи"/>
 
             <TextView
                 android:text="Ответственный"

@@ -2,7 +2,6 @@ package com.example.dilyara.coursovaja.Activity;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -28,17 +27,10 @@ import com.example.dilyara.coursovaja.R;
 import com.example.dilyara.coursovaja.entity.Status;
 import com.example.dilyara.coursovaja.entity.Way;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import static java.util.regex.Pattern.matches;
-
 public class EditProject extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Intent intent;
     long t;
-    boolean error =false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -157,7 +149,7 @@ public class EditProject extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    public void onClickEditPriject(View view) throws ParseException {
+    public void onClickEditPriject(View view) {
         Spinner status = (Spinner) findViewById(R.id.spinner2);
         Spinner way = (Spinner) findViewById(R.id.spinner3);
         Spinner users = (Spinner) findViewById(R.id.spinner7);
@@ -165,94 +157,14 @@ public class EditProject extends AppCompatActivity
         EditText cteateDate = (EditText) findViewById(R.id.editText27);
         EditText comoletionDate = (EditText) findViewById(R.id.editText4);
         AutoCompleteTextView deskription = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView5);
-        if (!name.getText().toString().equals("")) {
-            if (!cteateDate.getText().toString().equals("")) {
-                if (matches("(([0-2][0-9])|(3[0-1]))\\.((0[1-9])|(1[1-2]))\\.20[0-9][0-9]", cteateDate.getText().toString())) {
-                    if (!comoletionDate.getText().toString().equals("")) {
-                        if (matches("(([0-2][0-9])|(3[0-1]))\\.((0[1-9])|(1[1-2]))\\.20[0-9][0-9]", comoletionDate.getText().toString())) {
-                            SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-                            Date create = format.parse(cteateDate.getText().toString());
-                            Date comp = format.parse(comoletionDate.getText().toString());
-                            if (create.before(comp)) {
-                                if (!deskription.getText().toString().equals("")) {
-                                    try {
-                                        if (t > -1) {
-                                            DataBaseMetods.UpdateDataProject(this, t, name.getText().toString(), status.getSelectedItemId() + 1, way.getSelectedItemId() + 1, cteateDate.getText().toString(), comoletionDate.getText().toString(), deskription.getText().toString(), users.getSelectedItemId());
-                                        } else {
-                                            DataBaseMetods.AddDataProject(this, name.getText().toString(), status.getSelectedItemId() + 1, way.getSelectedItemId() + 1, cteateDate.getText().toString(), comoletionDate.getText().toString(), deskription.getText().toString(), users.getSelectedItemId());
-                                        }
-                                    } catch (Exception e) {
-                                        Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-                                    }
-                                } else {
-                                    deskription.setHintTextColor(Color.RED);
-                                    Toast.makeText(this, "Заполните поле описание", Toast.LENGTH_LONG).show();
-                                }
-                            }
-                            else
-                            {
-                                Toast.makeText(this, "Дата старта проекта не может быть позже даты окончания", Toast.LENGTH_SHORT).show();
-                                cteateDate.setTextColor(Color.RED);
-                                comoletionDate.setTextColor(Color.RED);
-                                error  =true;
-                            }
-                        }
-                        else{
-                            Toast.makeText(this, "Неверный формат даты", Toast.LENGTH_SHORT).show();
-                            comoletionDate.setTextColor(Color.RED);
-                        }
-                    } else {
-                        comoletionDate.setHintTextColor(Color.RED);
-                        Toast.makeText(this, "Заполните поле дата окончания", Toast.LENGTH_LONG).show();
-                    }
-                }
-                else{
-                    Toast.makeText(this, "Неверный формат даты", Toast.LENGTH_SHORT).show();
-                    cteateDate.setTextColor(Color.RED);
-                }
+        try {
+            if (t > -1) {
+                DataBaseMetods.UpdateDataProject(this, t, name.getText().toString(), status.getSelectedItemId()+1, way.getSelectedItemId()+1, cteateDate.getText().toString(), comoletionDate.getText().toString(), deskription.getText().toString(), users.getSelectedItemId());
             } else {
-                cteateDate.setHintTextColor(Color.RED);
-                Toast.makeText(this, "Заполните поле дата начала", Toast.LENGTH_LONG).show();
+                DataBaseMetods.AddDataProject(this, name.getText().toString(), status.getSelectedItemId()+1, way.getSelectedItemId()+1, cteateDate.getText().toString(), comoletionDate.getText().toString(), deskription.getText().toString(), users.getSelectedItemId());
             }
-        } else {
-            name.setHintTextColor(Color.RED);
-            Toast.makeText(this, "Заполните поле название", Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
-    }
-
-    public void NameProjOnClick(View view)
-    {
-        EditText name = (EditText) findViewById(R.id.editText25);
-        name.setHintTextColor(0xFF019EE4);
-        name.setTextColor(0xFF019EE4);
-    }
-    public void CrDateOnClick(View view)
-    {
-        EditText cteateDate = (EditText) findViewById(R.id.editText27);
-        cteateDate.setHintTextColor(0xFF019EE4);
-        cteateDate.setTextColor(0xFF019EE4);
-        if (error)
-        {
-            EditText compDate = (EditText) findViewById(R.id.editText4);
-            compDate.setHintTextColor(0xFF019EE4);
-            compDate.setTextColor(0xFF019EE4);
-        }
-    }
-    public void CompOnClick(View view)
-    {
-        EditText cteateDate = (EditText) findViewById(R.id.editText4);
-        cteateDate.setHintTextColor(0xFF019EE4);
-        cteateDate.setTextColor(0xFF019EE4);
-        if (error)
-        {
-            EditText compDate = (EditText) findViewById(R.id.editText27);
-            compDate.setHintTextColor(0xFF019EE4);
-            compDate.setTextColor(0xFF019EE4);
-        }
-    }
-    public void DeskriptClick(View view)
-    {
-        AutoCompleteTextView deskription = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView5);
-        deskription.setHintTextColor(0xFF019EE4);
     }
 }

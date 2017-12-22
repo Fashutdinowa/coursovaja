@@ -31,48 +31,30 @@ public class Registration extends AppCompatActivity {
     }
 
     public void RegButtonClick(View view) {
-        EditText name = (EditText) findViewById(R.id.name);
-        EditText surname = (EditText) findViewById(R.id.last_name);
+        EditText name = (EditText) findViewById(R.id.last_name);
+        EditText surname = (EditText) findViewById(R.id.name);
         Spinner status = (Spinner) findViewById(R.id.faculty);
         EditText login = (EditText) findViewById(R.id.login);
         EditText password = (EditText) findViewById(R.id.password);
-        if (!surname.getText().toString().equals("")) {
-            if (!name.getText().toString().equals("")) {
-                if (!login.getText().toString().equals("")) {
-                    if (!password.getText().toString().equals("")) {
-                        try {
-                            if (DataBaseMetods.SelectUser(this, login.getText().toString())) {
-                                if (DataBaseMetods.AddDataUser(this, surname.getText().toString(),name.getText().toString(), status.getSelectedItemPosition(), login.getText().toString(), password.getText().toString()) > 0) {
-                                    Intent intent = new Intent(Registration.this, LoginActivity.class);
-                                    startActivity(intent);
-                                } else {
-                                    return;
 
-                                }
-                            } else {
-                                login.setTextColor(Color.RED);
-                                error = true;
-                                Toast.makeText(this, "Пользователь с данным логином существует", Toast.LENGTH_SHORT).show();
-                            }
-                        } catch (Exception e) {
-                            return;
-                        }
-                    } else {
-                        Toast.makeText(this, "Заполните поле пароль", Toast.LENGTH_SHORT).show();
-                        password.setHintTextColor(Color.RED);
-                    }
+
+        try {
+            if (DataBaseMetods.SelectUser(this, login.getText().toString())) {
+                if (DataBaseMetods.AddDataUser(this, name.getText().toString(), surname.getText().toString(), status.getSelectedItemPosition(), login.getText().toString(), password.getText().toString()) > 0) {
+                    Intent intent = new Intent(Registration.this, LoginActivity.class);
+                    startActivity(intent);
                 } else {
-                    Toast.makeText(this, "Заполните поле логин", Toast.LENGTH_SHORT).show();
-                    login.setHintTextColor(Color.RED);
-                    error = true;
+                    return;
+
                 }
-            } else {
-                Toast.makeText(this, "Заполните поле имя", Toast.LENGTH_SHORT).show();
-                name.setHintTextColor(Color.RED);
             }
-        } else {
-            Toast.makeText(this, "Заполните поле фамилия", Toast.LENGTH_SHORT).show();
-            surname.setHintTextColor(Color.RED);
+            else {
+                login.setTextColor(Color.RED);
+                error = true;
+                Toast.makeText(this, "Пользователь с данным логином существует",  Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            return;
         }
     }
 
@@ -83,21 +65,6 @@ public class Registration extends AppCompatActivity {
             login.setTextColor(0xFF019EE4);
             login.setText("");
         }
-    }
-    public void PasswordOnClick(View view){
-        EditText login = (EditText) findViewById(R.id.password);
-        login.setTextColor(0xFF019EE4);
-        login.setHintTextColor(0xFF019EE4);
-    }
-    public void NameOnClick(View view){
-        EditText login = (EditText) findViewById(R.id.name);
-        login.setHintTextColor(0xFF019EE4);
-        login.setTextColor(0xFF019EE4);
-    }
-    public void SurnameOnClick(View view) {
-        EditText login = (EditText) findViewById(R.id.last_name);
-        login.setHintTextColor(0xFF019EE4);
-
     }
 
 }

@@ -46,14 +46,6 @@ public class DataBaseMetods {
         mDBHelper.close();
 
     }
-    static public void DeleteTasksProj(Context context, String id){
-        Connect(context);
-        mDb.delete("Tasks", "Project = ?", new String[]{String.valueOf(id)});
-        Toast.makeText(context, "Удаление успешно", Toast.LENGTH_SHORT).show();
-        mDb.close();
-        mDBHelper.close();
-
-    }
     /////////////////////////////////////////////////////////////////////////////////
     static public void Adddata(Context context)
     {
